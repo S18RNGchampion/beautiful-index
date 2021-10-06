@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style type="text/css">
+        #app {
+            position: absolute;
+            top: 200px;
+            left: 900px;
+            width: 400px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body background="sea.jpg"
+      style=" background-repeat:no-repeat ;background-size:100% 100% ;background-attachment: fixed;">
+<div id="app">
+    <h1 align="center" style="font-family:Hiragino Sans GB,cursive">登陆界面</h1>
+    <el-form :model="form" :rules="rule" ref="myform">
+        <el-form-item prop="account">
+            <el-input placeholder="请输入账号" v-model="form.account" prefix-icon="el-icon-user-solid"></el-input>
+        </el-form-item>
+        <el-form-item prop="password">
+            <el-input style="margin-top: 15px" placeholder="请输入密码" v-model="form.password" prefix-icon="el-icon-lock"
+                      show-password></el-input>
+        </el-form-item>
+        <el-form-item>
+            <el-button type="primary" style="width: 400px;margin-top: 15px" @click="submitForm('myform')">登陆</el-button>
+        </el-form-item>
+    </el-form>
+</div>
+</body>
+
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            form:{
+                account:'',
+                password:'',
+            },
+            rule:{
+                account: [
+                    { required: true, message: '请输入账号!', trigger: 'change' },
+                    { min: 8, max: 11, message: '长度在 8 到 11 个字符', trigger: 'change' }
+                ],
+                password: [
+                    { required: true, message: '请输入密码!', trigger: 'change' },
+                ],
+            }
+        },
+        methods: {
+            submitForm:function (formName){
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        alert('submit!');
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+            },
+
+        },
+
+    })
+</script>
+</html>
